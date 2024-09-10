@@ -21,7 +21,7 @@ struct LinkList
     LinkList* next;
 };
 
-typedef LinkList* LListPrint;
+typedef LinkList* LListPoint;
 
 //双向链表表
 // struct DuLList
@@ -38,30 +38,30 @@ typedef LinkList* LListPrint;
 //操作链表的函数
 
     //创建单向链表头节点
-LListPrint Build_LList(){
+LListPoint Build_LList(){
     const auto head = new LinkList();
     cin >> head->data;
     return head;
 }
     //添加一个单向链表节点
-LListPrint Add_LList( const LListPrint PreNode){
+LListPoint Add_LList(LListPoint PreNode){
     const auto newNode = new LinkList();
     cin >> newNode->data;
     newNode->next = nullptr; //C++最好空指针用 nullptr 
     PreNode->next = newNode;
     return newNode;
 }
-void RemoveLList(const LListPrint This_Node, const LListPrint Pre_Node){
+void RemoveLList(LListPoint This_Node, LListPoint Pre_Node){
     if(This_Node->next != nullptr){
     Pre_Node->next = This_Node->next;
     delete This_Node;
     }else{
-        delete This_Node;
         Pre_Node->next = nullptr;
+        delete This_Node;
     }
 }
     //打印
-void PrintList(const LinkList* head){
+void PrintList(LListPoint head){
     while (head != nullptr)
     {
         cout << head->data << endl;
@@ -78,11 +78,11 @@ int main()
     //创建链表
 
     //头节点
-    LinkList* First_LL = Build_LList();
+    LListPoint First_LL = Build_LList();
     //其他节点
-    LinkList* second_LL = Add_LList(First_LL);
+    LListPoint second_LL = Add_LList(First_LL);
     // LinkList* third_LL =
-    Add_LList(second_LL);
+    LListPoint third_LL = Add_LList(second_LL);
 
     
 
