@@ -34,6 +34,8 @@ int main()
     second->data = 2;
     second->next = nullptr; //C++最好空指针用 nullptr 
 
+    head->next = second;
+
     Node* third = new Node();
     third->data = 3;
     third->next = nullptr;
@@ -50,6 +52,7 @@ int main()
         cout << current->data << endl;
         current = current->next; // 指向下一个节点位置
     }
+    //      
     
 
 
