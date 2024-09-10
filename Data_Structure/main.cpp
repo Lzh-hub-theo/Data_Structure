@@ -51,6 +51,22 @@ LListPoint Add_LList(LListPoint PreNode){
     PreNode->next = newNode;
     return newNode;
 }
+LListPoint Insert_LList(LListPoint Pre_Node,LListPoint This_Node){
+    if (This_Node == nullptr)
+    {
+        const auto newNode = new LinkList();
+        cin >> newNode->data;
+        newNode->next = nullptr; //C++最好空指针用 nullptr 
+        Pre_Node->next = newNode;
+        return newNode;
+    }else{
+        const auto newNode = new LinkList();
+        cin >> newNode->data;
+        This_Node->next = Pre_Node->next->next;
+        Pre_Node->next = This_Node;
+        return newNode;
+    }
+}
 void RemoveLList(LListPoint This_Node, LListPoint Pre_Node){
     if(This_Node->next != nullptr){
     Pre_Node->next = This_Node->next;
@@ -92,6 +108,9 @@ int main()
     PrintList(First_LL);
     RemoveLList(third_LL,second_LL);
     PrintList(First_LL);
+    Insert_LList(First_LL,second_LL);
+    PrintList(First_LL);
+
 
 	return 0;
 }
