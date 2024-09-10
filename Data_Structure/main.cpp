@@ -9,8 +9,10 @@
 
 using namespace std;
 
-//通过指针和结构体来实现单向链表结构
 
+
+//通过指针和结构体来实现单向链表结构
+//单向链表
 struct Node
 {
     //头部来储存数据：数据域
@@ -18,6 +20,26 @@ struct Node
     //指针来存放下一个节点的地址
     Node* next;
 };
+//双向脸部表
+
+
+
+
+
+
+
+
+//操作链表的函数
+//打印
+void PrintList(Node* head){
+    while (head != nullptr)
+    {
+        cout << head->data << endl;
+        head = head->next; // 指向下一个节点位置
+    }
+}
+
+
 
 
 
@@ -44,15 +66,7 @@ int main()
 
     //尾节点就是最后一个创建的节点，它的next指向 nullptr
     
-    // 操作链表
-    //      打印
-    Node* current = head;
-    while (current != nullptr)
-    {
-        cout << current->data << endl;
-        current = current->next; // 指向下一个节点位置
-    }
-    //      
+    
     
 
 
