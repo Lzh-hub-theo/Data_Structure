@@ -9,7 +9,9 @@
 
 using namespace std;
 
-
+void PrintLine(){
+    cout << "***********" << '\n';
+}
 
 //通过指针和结构体来实现单向链表结构
 //单向链表
@@ -52,22 +54,22 @@ LListPoint Add_LList(LListPoint PreNode){
     return newNode;
 }
 LListPoint Insert_LList(LListPoint Pre_Node,LListPoint This_Node){
-    if (This_Node == nullptr)
+    if (This_Node->next == nullptr) //说明是末尾节点
     {
         const auto newNode = new LinkList();
         cin >> newNode->data;
         newNode->next = nullptr; //C++最好空指针用 nullptr 
-        Pre_Node->next = newNode;
+        This_Node->next = newNode;
         return newNode;
     }else{
         const auto newNode = new LinkList();
         cin >> newNode->data;
-        This_Node->next = Pre_Node->next->next;
-        Pre_Node->next = This_Node;
+        Pre_Node->next = newNode;
+        newNode->next = This_Node;
         return newNode;
     }
 }
-void RemoveLList(LListPoint This_Node, LListPoint Pre_Node){
+void Remove_LList(LListPoint This_Node, LListPoint Pre_Node){
     if(This_Node->next != nullptr){
     Pre_Node->next = This_Node->next;
     delete This_Node;
@@ -76,13 +78,35 @@ void RemoveLList(LListPoint This_Node, LListPoint Pre_Node){
         delete This_Node;
     }
 }
+//查找内容，返回节点地址
+LListPoint Search_LList(LListPoint search_Node,int Elem){
+    LListPoint P = search_Node->next;
+    while(P->next != nullptr && P -> data != Elem){
+        P = P -> next;
+    }
+    if(P->data == Elem){
+        return P;
+    }else{
+        P = nullptr;
+        return P;
+    }
+   
+}
+
+
+
     //打印
 void PrintList(LListPoint head){
-    while (head != nullptr)
-    {
-        cout << head->data << endl;
-        head = head->next; // 指向下一个节点位置
+    if(head != nullptr){
+            while (head != nullptr)
+        {
+            cout << head->data << endl;
+            head = head->next; // 指向下一个节点位置
+        }
+    }else{
+        printf("The list is NULL\n");
     }
+    
 }
 
 
@@ -100,16 +124,23 @@ int main()
     // LinkList* third_LL =
     LListPoint third_LL = Add_LList(second_LL);
 
-    
+    LListPoint l = Search_LList(First_LL,4);
+
+    PrintList(l);
+    PrintLine();
 
     
 
     //尾节点就是最后一个创建的节点，它的next指向 nullptr
     PrintList(First_LL);
-    RemoveLList(third_LL,second_LL);
+    PrintLine();
+    Remove_LList(third_LL,second_LL);
     PrintList(First_LL);
+    PrintLine();
     Insert_LList(First_LL,second_LL);
+    PrintLine();
     PrintList(First_LL);
+    PrintLine();
 
 
 	return 0;
