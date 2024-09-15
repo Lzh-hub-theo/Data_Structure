@@ -3,6 +3,10 @@
 数据结构：
     1.链表 list
         ·单向链表
+
+ ! 这是个想法
+ ? 如果我把这些函数内部进行对链表的识别，什么类型的链表就用这种类型的来实现，那就可以做到调用一个函数来解决各种链表的各种需求
+
 */
 
 #include <iostream>
@@ -23,14 +27,20 @@ struct LinkList
     LinkList* next;
 };
 
-typedef LinkList* LListPoint;
+typedef LinkList* LList_Point;
 
 //双向链表表
-// struct DuLList
-// {
+struct DuLList
+{
+    //前驱节点
+    DuLList* pre;
+    //数据域
+    int data;
+    //后驱节点
+    DuLList* next;
+};
 
-// };
-
+typedef DuLList* DuLList_Point;
 
 
 
@@ -40,20 +50,20 @@ typedef LinkList* LListPoint;
 //操作链表的函数
 
     //创建单向链表头节点
-LListPoint Build_LList(){
+LList_Point Build_LList(){
     const auto head = new LinkList();
     cin >> head->data;
     return head;
 }
     //添加一个单向链表节点
-LListPoint Add_LList(LListPoint PreNode){
+LList_Point Add_LList(LList_Point PreNode){
     const auto newNode = new LinkList();
     cin >> newNode->data;
     newNode->next = nullptr; //C++最好空指针用 nullptr 
     PreNode->next = newNode;
     return newNode;
 }
-LListPoint Insert_LList(LListPoint Pre_Node,LListPoint This_Node){
+LList_Point Insert_LList(LList_Point Pre_Node,LList_Point This_Node){
     if (This_Node->next == nullptr) //说明是末尾节点
     {
         const auto newNode = new LinkList();
@@ -69,34 +79,38 @@ LListPoint Insert_LList(LListPoint Pre_Node,LListPoint This_Node){
         return newNode;
     }
 }
-void Remove_LList(LListPoint This_Node, LListPoint Pre_Node){
+void Remove_LList(LList_Point This_Node, LList_Point Pre_Node){
     if(This_Node->next != nullptr){
-    Pre_Node->next = This_Node->next;
-    delete This_Node;
+        Pre_Node->next = This_Node->next;
+        delete This_Node;
     }else{
         Pre_Node->next = nullptr;
         delete This_Node;
     }
 }
-//查找内容，返回节点地址
-LListPoint Search_LList(LListPoint search_Node,int Elem){
-    LListPoint P = search_Node->next;
-    while(P->next != nullptr && P -> data != Elem){
+//查找内容,返回节点地址,如果没找到就返回一个nullptr
+LList_Point Search_LList(LList_Point const search_Node,int Elem){
+    if(search_Node != nullptr){
+        LList_Point P = search_Node->next;
+        while(P->next != nullptr && P -> data != Elem){
         P = P -> next;
-    }
-    if(P->data == Elem){
-        return P;
+        }
+        if(P->data == Elem){
+            return P;
+        }else{
+            P = nullptr;
+            return P;
+        }
     }else{
-        P = nullptr;
+        LList_Point P = nullptr;
         return P;
     }
-   
 }
 
 
 
     //打印
-void PrintList(LListPoint head){
+void PrintList(LList_Point head){
     if(head != nullptr){
             while (head != nullptr)
         {
@@ -104,9 +118,8 @@ void PrintList(LListPoint head){
             head = head->next; // 指向下一个节点位置
         }
     }else{
-        printf("The list is NULL\n");
+        printf("Error: The list is empty.\n");
     }
-    
 }
 
 
@@ -118,14 +131,14 @@ int main()
     //创建链表
 
     //头节点
-    LListPoint First_LL = Build_LList();
+    LList_Point First_LL = Build_LList();
     //其他节点
-    LListPoint second_LL = Add_LList(First_LL);
+    LList_Point second_LL = Add_LList(First_LL);
     // LinkList* third_LL =
-    LListPoint third_LL = Add_LList(second_LL);
+    LList_Point third_LL = Add_LList(second_LL);
 
-    LListPoint l = Search_LList(First_LL,4);
-
+    LList_Point l = Search_LList(First_LL,4);
+    PrintLine();
     PrintList(l);
     PrintLine();
 
