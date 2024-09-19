@@ -25,6 +25,7 @@ struct LinkList
     int data;
     //指针来存放下一个节点的地址
     LinkList* next;
+    LinkList(int num) : data(num),next(nullptr){}    //初始化节点
 };
 
 typedef LinkList* LList_Point;
@@ -32,12 +33,13 @@ typedef LinkList* LList_Point;
 //双向链表表
 struct DuLList
 {
-    //前驱节点
-    DuLList* pre;
     //数据域
     int data;
+    //前驱节点
+    DuLList* pre;
     //后驱节点
     DuLList* next;
+    DuLList(int num):data(num),next(nullptr),pre(nullptr){}
 };
 
 typedef DuLList* DuLList_Point;
@@ -48,17 +50,24 @@ typedef DuLList* DuLList_Point;
 
 
 //操作链表的函数
-
+/*---------------------------------------------------------------------*/
+//单向链表的函数  
     //创建单向链表头节点
 LList_Point Build_LList(){
-    const auto head = new LinkList();
-    cin >> head->data;
+    cout << "A node.... is being created" << '\n';
+    cout << "Please input data:";
+    int data = 0;
+    cin >> data;
+    const auto head = new LinkList(data);
     return head;
 }
     //添加一个单向链表节点
 LList_Point Add_LList(LList_Point PreNode){
-    const auto newNode = new LinkList();
-    cin >> newNode->data;
+    cout << "A node.... is being created" << '\n';
+    cout << "Please input data:";
+    int data = 0;
+    cin >> data;
+    const auto newNode = new LinkList(data);
     newNode->next = nullptr; //C++最好空指针用 nullptr 
     PreNode->next = newNode;
     return newNode;
@@ -66,14 +75,20 @@ LList_Point Add_LList(LList_Point PreNode){
 LList_Point Insert_LList(LList_Point Pre_Node,LList_Point This_Node){
     if (This_Node->next == nullptr) //说明是末尾节点
     {
-        const auto newNode = new LinkList();
-        cin >> newNode->data;
+        cout << "A node.... is being created" << '\n';
+        cout << "Please input data:";
+        int data = 0;
+        cin >> data;
+        const auto newNode = new LinkList(data);
         newNode->next = nullptr; //C++最好空指针用 nullptr 
         This_Node->next = newNode;
         return newNode;
     }else{
-        const auto newNode = new LinkList();
-        cin >> newNode->data;
+        cout << "A node.... is being created" << '\n';
+        cout << "Please input data:";
+        int data = 0;
+        cin >> data;
+        const auto newNode = new LinkList(data);
         Pre_Node->next = newNode;
         newNode->next = This_Node;
         return newNode;
@@ -106,7 +121,7 @@ LList_Point Search_LList(LList_Point const search_Node,int Elem){
         return P;
     }
 }
-
+/*---------------------------------------------------------------------*/
 
 
     //打印
