@@ -1,0 +1,51 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int len=8;
+
+void bucketSort(vector<double>&arr){
+    int n=arr.size();
+    if(n<=1)return;
+
+    int maxx=arr[0];
+    int minn=arr[0];
+    for(double nums:arr){
+        if(nums>maxx)maxx=nums;
+        if(nums<minn)minn=nums;
+    }
+    int bucketSize=maxx-minn+1;
+    int bucketCount=10;
+
+    vector<vector<double>>bucket(bucketCount);
+
+    for(double nums:arr){
+        int index=(nums-minn)*bucketCount/bucketSize;
+        bucket[index].push_back(nums);
+    }
+
+    for(vector<double>& b:bucket){
+        sort(b.begin(),b.end());
+    }
+
+    int index=0;
+    for(vector<double>&b:bucket){
+        for(double num:b){
+            arr[index++]=num;
+        }
+    }
+}
+
+int main(){
+    vector<double> arr={4.12,6.421,0.0023,3.0,2.123,8.122,4.12,10.09};
+
+    bucketSort(arr);
+
+    for(int nums:arr){
+        cout<<nums<<' ';
+    }
+    return 0;
+}
+//13189676864
